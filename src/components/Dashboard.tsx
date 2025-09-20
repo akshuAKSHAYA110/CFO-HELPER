@@ -64,19 +64,56 @@ const mockData = {
 };
 
 export const Dashboard = () => {
-  const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("overview");
 
   const handleSearch = (query: string, filters: string[]) => {
-    // Mock search functionality
+    // Enhanced mock search functionality with more detailed results
     const mockResults = [
-      `Financial analysis for "${query}"`,
-      "Revenue trends show 18% growth over last 6 months",
-      "Marketing spend efficiency: ₹6 revenue per ₹1 spent",
-      "Cash flow projection: Positive for next 12 months",
-      "Recommended action: Consider increasing marketing budget by 20%"
+      {
+        type: "insight",
+        title: `Financial Analysis for "${query}"`,
+        content: "Based on your search, here are the key findings:",
+        details: [
+          "Revenue trends show 18.4% growth over last 6 months",
+          "Marketing ROI: ₹6.2 revenue per ₹1 spent",
+          "Current monthly burn rate: ₹3.2L",
+          "Projected profitability: Next 3 months"
+        ]
+      },
+      {
+        type: "chart",
+        title: "Related Financial Data",
+        content: "Key metrics matching your search:",
+        details: [
+          "Monthly Revenue: ₹4.5L (↑18% vs last month)",
+          "Net Profit Margin: 28.9% (↑5.2% vs last month)",
+          "Cash Flow: ₹1.8L positive",
+          "Marketing Spend Efficiency: Above industry average"
+        ]
+      },
+      {
+        type: "recommendation",
+        title: "AI Recommendations",
+        content: "Based on your financial patterns:",
+        details: [
+          "💡 Consider increasing marketing budget by 20% for optimal ROI",
+          "📈 Revenue growth trajectory suggests hiring 2 more team members",
+          "⚠️ Monitor expenses - trending 10% higher than forecasted",
+          "🎯 On track to exceed quarterly targets by 15%"
+        ]
+      }
     ];
+    
     setSearchResults(mockResults);
+    
+    // Scroll to results
+    setTimeout(() => {
+      const resultsElement = document.getElementById('search-results');
+      if (resultsElement) {
+        resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   return (
@@ -105,19 +142,76 @@ export const Dashboard = () => {
           
           <SearchBar onSearch={handleSearch} />
           
-          {/* Search Results */}
+          {/* Enhanced Search Results */}
           {searchResults.length > 0 && (
-            <div className="mt-6 dashboard-card">
-              <h3 className="font-semibold mb-3 flex items-center gap-2">
-                <Activity className="h-4 w-4 text-primary" />
-                Search Results
-              </h3>
-              <div className="space-y-2">
+            <div id="search-results" className="mt-6 space-y-4 fade-in">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-primary" />
+                  Search Results
+                </h3>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setSearchResults([])}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Clear Results
+                </Button>
+              </div>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {searchResults.map((result, index) => (
-                  <div key={index} className="p-3 bg-accent/50 rounded-lg text-sm">
-                    {result}
+                  <div key={index} className="dashboard-card hover:shadow-glow transition-all duration-300">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className={`p-2 rounded-lg ${
+                        result.type === 'insight' ? 'bg-primary/10 text-primary' :
+                        result.type === 'chart' ? 'bg-profit/10 text-profit' :
+                        'bg-accent text-accent-foreground'
+                      }`}>
+                        {result.type === 'insight' ? <BarChart3 className="h-4 w-4" /> :
+                         result.type === 'chart' ? <TrendingUp className="h-4 w-4" /> :
+                         <Activity className="h-4 w-4" />}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-sm mb-1">{result.title}</h4>
+                        <p className="text-xs text-muted-foreground">{result.content}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      {result.details.map((detail: string, detailIndex: number) => (
+                        <div key={detailIndex} className="flex items-start gap-2 text-sm">
+                          <div className="w-1 h-1 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                          <span className="text-foreground leading-relaxed">{detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {result.type === 'recommendation' && (
+                      <div className="mt-4 pt-3 border-t border-muted/20">
+                        <Button size="sm" variant="outline" className="w-full text-xs">
+                          Apply Recommendations
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 ))}
+              </div>
+              
+              <div className="dashboard-card bg-accent/30 border-accent">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Activity className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Need more specific insights?</p>
+                    <p className="text-xs text-muted-foreground">Try searching for specific metrics like "cash flow Q2" or "marketing ROI trends"</p>
+                  </div>
+                  <Button size="sm" variant="outline">
+                    Advanced Search
+                  </Button>
+                </div>
               </div>
             </div>
           )}
