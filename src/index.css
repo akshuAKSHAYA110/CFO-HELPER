@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Professional Financial Dashboard Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Professional finance color palette */
+    --background: 210 25% 98%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Financial teal/blue primary */
+    --primary: 195 100% 28%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 195 100% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Professional secondary */
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 215 25% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Finance accent colors */
+    --accent: 195 100% 96%;
+    --accent-foreground: 195 100% 28%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Profit/Loss colors */
+    --profit: 142 76% 36%;
+    --profit-foreground: 0 0% 98%;
+    --loss: 0 84% 60%;
+    --loss-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    --border: 214 20% 89%;
+    --input: 214 20% 89%;
+    --ring: 195 100% 28%;
+
+    --radius: 0.75rem;
+
+    /* Finance dashboard gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-profit: linear-gradient(135deg, hsl(var(--profit)), hsl(142 76% 45%));
+    --gradient-loss: linear-gradient(135deg, hsl(var(--loss)), hsl(0 84% 70%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 20% 98%));
+
+    /* Professional shadows */
+    --shadow-card: 0 4px 12px -2px hsl(215 25% 15% / 0.08);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.15);
+    --shadow-profit: 0 4px 12px hsl(var(--profit) / 0.2);
+    --shadow-loss: 0 4px 12px hsl(var(--loss) / 0.2);
+
+    /* Smooth animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-chart: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +83,42 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    /* Dark theme for financial dashboard */
+    --background: 215 28% 7%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 215 28% 9%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 215 28% 9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 195 100% 45%;
+    --primary-foreground: 215 28% 7%;
+    --primary-glow: 195 100% 60%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 215 25% 15%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 215 25% 15%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 215 25% 15%;
+    --accent-foreground: 195 100% 45%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --profit: 142 76% 45%;
+    --loss: 0 84% 65%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive: 0 84% 65%;
+    --destructive-foreground: 215 28% 7%;
+
+    --border: 215 25% 18%;
+    --input: 215 25% 18%;
+    --ring: 195 100% 45%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-card: linear-gradient(180deg, hsl(215 28% 9%), hsl(215 28% 11%));
+    --shadow-card: 0 4px 12px -2px hsl(0 0% 0% / 0.25);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +136,87 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Custom scrollbar for dashboard */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/50;
+  }
+}
+
+@layer components {
+  /* Dashboard specific components */
+  .dashboard-card {
+    @apply bg-card border shadow-card rounded-lg p-6 transition-all duration-300 hover:shadow-glow;
+  }
+
+  .metric-card {
+    @apply dashboard-card relative overflow-hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-card opacity-50 pointer-events-none;
+  }
+
+  .profit-indicator {
+    @apply text-profit font-semibold;
+  }
+
+  .loss-indicator {
+    @apply text-loss font-semibold;
+  }
+
+  .chart-container {
+    @apply dashboard-card p-8;
+  }
+
+  .search-highlight {
+    @apply bg-primary/20 text-primary px-1 rounded;
+  }
+
+  /* Animation classes */
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Professional number formatting */
+  .currency-large {
+    @apply text-3xl font-bold tracking-tight;
+  }
+
+  .currency-medium {
+    @apply text-xl font-semibold;
+  }
+
+  .currency-small {
+    @apply text-sm font-medium text-muted-foreground;
   }
 }
